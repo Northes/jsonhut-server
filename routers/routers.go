@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"jsonhutapi/controller"
 	"jsonhutapi/middleware"
+	"jsonhutapi/models"
 	"net/http"
 )
 
@@ -25,6 +26,12 @@ func SetupRouter() *gin.Engine {
 		engine.GET("/bins/:id", controller.GetJson)
 		engine.POST("/bins", controller.PostJson)
 		engine.GET("/details/:id", controller.GetJsonDetails)
+		engine.NoRoute(func(context *gin.Context) {
+			context.JSON(http.StatusNotFound, models.ReturnJsonWithoutData{
+				Code: 404,
+				Msg:  "You can go to the documentationUrl [https://jsonhut.com/docs]",
+			})
+		})
 	}
 
 	//engine.Use(cors.New(cors.Config{
