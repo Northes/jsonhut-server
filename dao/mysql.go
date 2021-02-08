@@ -2,8 +2,8 @@ package dao
 
 import (
 	"fmt"
-	"gorm.io/gorm"
 	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 var (
@@ -18,7 +18,7 @@ func InitMySQL() (err error) {
 		fmt.Println(err.Error())
 		return err
 	}
-	//err2 := db.AutoMigrate(&Json{})
+	//err2 := DB.AutoMigrate(&models.Json{})
 	//if err2 != nil {
 	//	fmt.Println(err2)
 	//}

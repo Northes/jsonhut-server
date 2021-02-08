@@ -10,13 +10,13 @@ import (
 
 type Json struct {
 	gorm.Model
-	JsonId         string // JsonID
-	JsonBody       string // Json主体
-	ExpirationTime string `gorm:"type:time"`  // 过期时间
-	CallCount      uint   `gorm:"type:uint0"` // 调用次数
-	Status         uint   `gorm:"type:uint"`  // 状态：0 正常 1 禁用 2 审核中 3 审核拒绝
-	FromIP         string // 来源IP
-	Comment        string // 备注
+	JsonId         string    // JsonID
+	JsonBody       string    // Json主体
+	ExpirationTime time.Time `gorm:"type:time"`  // 过期时间
+	CallCount      uint      `gorm:"type:uint"` // 调用次数
+	Status         uint      `gorm:"type:uint"`  // 状态：0 正常 1 禁用 2 审核中 3 审核拒绝
+	FromIP         string    // 来源IP
+	Comment        string    // 备注
 }
 
 func CreateAJson(jsonBody string, expirationTime int) (uint, error) {
@@ -44,7 +44,7 @@ func CreateAJson(jsonBody string, expirationTime int) (uint, error) {
 		Model:          gorm.Model{},
 		JsonId:         "",
 		JsonBody:       jsonBody,
-		ExpirationTime: time.Unix(nowTime, 0).Format("2006-01-02 15:04:05"),
+		ExpirationTime: time.Unix(nowTime, 0),
 		CallCount:      0,
 		Status:         0,
 		FromIP:         "",

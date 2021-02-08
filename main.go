@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"jsonhutapi/dao"
+	"jsonhutapi/models"
 	"jsonhutapi/routers"
 )
 
@@ -12,6 +13,11 @@ func main() {
 	if err != nil {
 		//fmt.Println(err.Error())
 		panic(err.Error())
+	}
+	// 自动迁移
+	err = dao.DB.AutoMigrate(&models.Json{})
+	if err != nil {
+		fmt.Println(err.Error())
 	}
 
 	// 注册路由
