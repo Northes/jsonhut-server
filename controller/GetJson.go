@@ -1,25 +1,22 @@
-package GetJson
+package controller
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"jsonhutapi/repository"
+	"jsonhutapi/models"
 	"net/http"
 )
 
-type ReturnJsonWithoutData struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
-}
+
 
 func GetJson(ctx *gin.Context) {
 	id := ctx.Param("id")
 
-	resultData,err := repository.QueryJsonBodyByJsonID(id)
+	resultData,err := models.QueryJsonBodyByJsonID(id)
 	if err != nil {
 		fmt.Println(err.Error())
-		ctx.JSON(http.StatusNotFound,ReturnJsonWithoutData{
+		ctx.JSON(http.StatusNotFound, models.ReturnJsonWithoutData{
 			Code: 404,
 			Msg:  "Record not found",
 		})
@@ -28,7 +25,7 @@ func GetJson(ctx *gin.Context) {
 
 	var dat map[string]interface{}
 	if err := json.Unmarshal([]byte(resultData.JsonBody), &dat); err != nil {
-		ctx.JSON(http.StatusInternalServerError,ReturnJsonWithoutData{
+		ctx.JSON(http.StatusInternalServerError, models.ReturnJsonWithoutData{
 			Code: 500,
 			Msg:  "Unsupported data type",
 		})
