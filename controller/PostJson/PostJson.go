@@ -36,8 +36,8 @@ func PostJson(ctx *gin.Context) {
 	err := ctx.ShouldBind(&json)
 	if err != nil {
 		fmt.Println(err)
-		ctx.JSON(http.StatusOK, ReturnJsonWithoutData{
-			Code: 500,
+		ctx.JSON(http.StatusBadRequest, ReturnJsonWithoutData{
+			Code: 400,
 			Msg:  "Parameter error",
 		})
 		return
@@ -47,7 +47,7 @@ func PostJson(ctx *gin.Context) {
 	uid, err := repository.CreateJson(json.Json, intNum)
 	if err != nil {
 		fmt.Println(err)
-		ctx.JSON(http.StatusOK, ReturnJsonWithoutData{
+		ctx.JSON(http.StatusInternalServerError, ReturnJsonWithoutData{
 			Code: 500,
 			Msg:  "Internal error",
 		})
@@ -57,7 +57,7 @@ func PostJson(ctx *gin.Context) {
 	jsonId := repository.UpdateJsonID(uid)
 
 	ctx.JSON(http.StatusCreated, ReturnJson{
-		Code: 200,
+		Code: 201,
 		Msg:  "Success",
 		Data: ReturnData{Id: jsonId},
 	})

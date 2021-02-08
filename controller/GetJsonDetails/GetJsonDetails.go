@@ -30,8 +30,8 @@ func GetDetails(ctx *gin.Context) {
 	resultData,err := repository.QueryJsonBodyByJsonID(id)
 	if err != nil {
 		fmt.Println(err.Error())
-		ctx.JSON(http.StatusOK,ReturnJsonWithoutData{
-			Code: 400,
+		ctx.JSON(http.StatusNotFound,ReturnJsonWithoutData{
+			Code: 404,
 			Msg:  "Record not found",
 		})
 		return
@@ -39,8 +39,8 @@ func GetDetails(ctx *gin.Context) {
 
 	var dat map[string]interface{}
 	if err := json.Unmarshal([]byte(resultData.JsonBody), &dat); err != nil {
-		ctx.JSON(http.StatusOK,ReturnJsonWithoutData{
-			Code: 400,
+		ctx.JSON(http.StatusInternalServerError,ReturnJsonWithoutData{
+			Code: 500,
 			Msg:  "Unsupported data type",
 		})
 		return

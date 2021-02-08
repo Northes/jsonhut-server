@@ -58,7 +58,7 @@ func RateLimitMiddleware(fillInterval time.Duration, cap int64) gin.HandlerFunc 
 		// 如果取不到令牌就中断本次请求返回 rate limit...
 		if i < 1 {
 			fmt.Println("rate limit...")
-			c.String(503, "rate limit...")
+			c.String(http.StatusServiceUnavailable, "rate limit...")
 			c.Abort()
 			return
 		}
