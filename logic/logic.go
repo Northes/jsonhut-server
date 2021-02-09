@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"time"
@@ -13,6 +14,7 @@ const (
 	LEN     = 6
 )
 
+// 计算Json唯一ID
 func Encode(uid uint64) string {
 	id := uid
 	mod := uint64(0)
@@ -32,6 +34,7 @@ func Encode(uid uint64) string {
 	return res
 }
 
+// 判断Json是否过期或被禁用
 func IsExpiredOrForbidden(ExpirationTime time.Time, status uint) (err error) {
 	//x := "2018-12-27 18:44:55"
 	fmt.Println(ExpirationTime)
@@ -51,4 +54,15 @@ func IsExpiredOrForbidden(ExpirationTime time.Time, status uint) (err error) {
 		return errors.New("The Json has been disabled.")
 	}
 	return nil
+}
+
+// 文字转json
+func String2Json(Str string) (map[string]interface{}, error) {
+	var dat map[string]interface{}
+	err := json.Unmarshal([]byte(Str), &dat)
+	if err != nil {
+		return nil, err
+	} else {
+		return dat, err
+	}
 }
