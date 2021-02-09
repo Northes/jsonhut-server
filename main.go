@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+	"jsonhutapi/config"
 	"jsonhutapi/dao"
 	"jsonhutapi/models"
 	"jsonhutapi/routers"
 )
 
 func main() {
+	config.LoadConfig()
 	// 连接MySQL数据库
 	err := dao.InitMySQL()
 	if err != nil {
@@ -25,7 +27,7 @@ func main() {
 	// 注册路由
 	r := routers.SetupRouter()
 
-	err = r.Run(":8081")
+	err = r.Run(config.App.Port)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
