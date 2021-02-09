@@ -8,12 +8,14 @@ import (
 )
 
 func main() {
-	// 连接数据库
+	// 连接MySQL数据库
 	err := dao.InitMySQL()
 	if err != nil {
 		//fmt.Println(err.Error())
 		panic(err.Error())
 	}
+	// 连接Redis
+	dao.InitRedis()
 	// 自动迁移
 	err = dao.DB.AutoMigrate(&models.Json{})
 	if err != nil {
