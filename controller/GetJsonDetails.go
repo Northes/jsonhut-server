@@ -9,9 +9,9 @@ import (
 )
 
 func GetJsonDetails(ctx *gin.Context) {
-	id := ctx.Param("id")
+	jsonID := ctx.Param("id")
 
-	resultData, err := models.QueryJsonBodyByJsonID(id)
+	resultData, err := models.QueryJsonBodyByJsonID(jsonID)
 	if err != nil {
 		fmt.Println(err.Error())
 		ctx.JSON(http.StatusNotFound, models.ReturnJsonWithoutData{
@@ -30,12 +30,22 @@ func GetJsonDetails(ctx *gin.Context) {
 		return
 	}
 
+	//loc, _ := time.LoadLocation("Asia/Shanghai") //设置时区
+	//tt, _ := time.ParseInLocation("2006-01-02 15:04:05", resultData.ExpirationTime.Format("2006-01-02 15:04:05"), loc)
+	eTime := resultData.ExpirationTime.Format("2006-01-02 15:04:05")
+	cTime := resultData.CreatedAt.Format("2006-01-02 15:04:05")
+	uTime := resultData.UpdatedAt.Format("2006-01-02 15:04:05")
+
 	ctx.JSON(http.StatusOK, models.DetailsReturnJson{
 		Code: 200,
 		Msg:  "Success",
 		Data: models.DetailsReturnData{
-			JsonBody: dat,
-			Url:      "https://api.jsonhut.com/bins/" + id,
+			//JsonBody:       dat,
+			Url:            "https://api.jsonhut.com/bins/" + jsonID,
+			Count:          resultData.CallCount,
+			ExpirationTime: eTime,
+			CreatedAt:      cTime,
+			UpdatedAt:      uTime,
 		},
 	})
 }

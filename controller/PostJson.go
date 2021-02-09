@@ -6,8 +6,6 @@ import (
 	"jsonhutapi/models"
 	"net/http"
 	"strconv"
-
-	//"jsonhutapi/repository"
 )
 
 func PostJson(ctx *gin.Context) {
@@ -23,7 +21,7 @@ func PostJson(ctx *gin.Context) {
 		return
 	}
 
-	intNum, _ := strconv.Atoi(json.Time)
+	intNum, _ := strconv.Atoi(json.Day)
 	uid, err := models.CreateAJson(json.Json, intNum)
 	if err != nil {
 		fmt.Println(err.Error())

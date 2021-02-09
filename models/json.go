@@ -12,9 +12,9 @@ type Json struct {
 	gorm.Model
 	JsonId         string    // JsonID
 	JsonBody       string    // Json主体
-	ExpirationTime time.Time `gorm:"type:time"`  // 过期时间
+	ExpirationTime time.Time `gorm:"type:time"` // 过期时间
 	CallCount      uint      `gorm:"type:uint"` // 调用次数
-	Status         uint      `gorm:"type:uint"`  // 状态：0 正常 1 禁用 2 审核中 3 审核拒绝
+	Status         uint      `gorm:"type:uint"` // 状态：0 正常 1 禁用 2 审核中 3 审核拒绝
 	FromIP         string    // 来源IP
 	Comment        string    // 备注
 }
@@ -87,4 +87,13 @@ func UpdateJsonID(id uint) string {
 	jsonId := logic.Encode(uint64(id))
 	dao.DB.Model(&Json{}).Where("id = ?", id).Update("json_id", jsonId)
 	return jsonId
+}
+
+func UpdateJsonCallCount(jsonID string) {
+	resultData, err := QueryJsonBodyByJsonID(jsonID)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	dao.DB.Model(&Json{}).Where("json_id = ?", jsonID).Update("call_count", resultData.CallCount+1)
 }
