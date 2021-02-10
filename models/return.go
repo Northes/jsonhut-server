@@ -19,9 +19,9 @@ type DetailsReturnData struct {
 	//JsonBody       map[string]interface{} `json:"json_body"`
 	Url            string `json:"url"`
 	Count          uint   `json:"count"`
-	ExpirationTime string `json:"expiration_time"`
+	ExpiresAt string `json:"expires_at"`
 	CreatedAt      string `json:"created_at"`
-	UpdatedAt      string `json:"last_call"`
+	LastUsedAt      string `json:"last_used_at"`
 }
 
 type DetailsReturnJson struct {

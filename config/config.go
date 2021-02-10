@@ -11,6 +11,7 @@ var App appStruct
 type appStruct struct {
 	AppName string `ini:"app_name"`
 	Port    string `ini:"app_port"`
+	BaseUrl string `ini:"base_url"`
 }
 
 type configStruct struct {

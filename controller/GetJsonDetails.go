@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"jsonhutapi/config"
 	"jsonhutapi/models"
 	"net/http"
 )
@@ -41,11 +42,11 @@ func GetJsonDetails(ctx *gin.Context) {
 		Msg:  "Success",
 		Data: models.DetailsReturnData{
 			//JsonBody:       dat,
-			Url:            "https://api.jsonhut.com/bins/" + jsonID,
-			Count:          resultData.CallCount,
-			ExpirationTime: eTime,
-			CreatedAt:      cTime,
-			UpdatedAt:      uTime,
+			Url:        config.App.BaseUrl + "/bins/" + jsonID,
+			Count:      resultData.CallCount,
+			ExpiresAt:  eTime,
+			CreatedAt:  cTime,
+			LastUsedAt: uTime,
 		},
 	})
 }

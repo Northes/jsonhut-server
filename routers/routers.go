@@ -1,12 +1,14 @@
 package routers
 
 import (
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
+	"jsonhutapi/config"
 	"jsonhutapi/controller"
 	"jsonhutapi/middleware"
 	"jsonhutapi/models"
 	"net/http"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func SetupRouter() *gin.Engine {
@@ -16,7 +18,7 @@ func SetupRouter() *gin.Engine {
 	engine.Use(cors.Default(), middleware.RateLimitMiddleware(200, 8))
 	{
 		engine.GET("/", func(context *gin.Context) {
-			baseurl := "https://api.jsonhut.com"
+			baseurl := config.App.BaseUrl
 			context.JSON(http.StatusOK, gin.H{
 				"[GET] Request Json":      baseurl + "/bins/{id}",
 				"[POST] Create a new Json": baseurl + "/bins",
