@@ -17,6 +17,8 @@ func GetJson(ctx *gin.Context) {
 		fmt.Printf("From Redis : %s\n", redisResult)
 		json, _ := logic.String2Json(redisResult)
 		ctx.JSON(http.StatusOK, json)
+		// 调用时增加次数
+		models.UpdateJsonCallCount(jsonID)
 		return
 	}
 
