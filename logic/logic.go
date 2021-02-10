@@ -3,7 +3,6 @@ package logic
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"time"
 )
 
@@ -37,15 +36,15 @@ func Encode(uid uint64) string {
 // 判断Json是否过期或被禁用
 func IsExpiredOrForbidden(ExpirationTime time.Time, status uint) (err error) {
 	//x := "2018-12-27 18:44:55"
-	fmt.Println(ExpirationTime)
+	//fmt.Println(ExpirationTime)
 
 	nowTime := time.Now().Unix()
 
 	loc, _ := time.LoadLocation("Asia/Shanghai")                                                            //设置时区
 	tt, _ := time.ParseInLocation("2006-01-02 15:04:05", ExpirationTime.Format("2006-01-02 15:04:05"), loc) //2006-01-02 15:04:05是转换的格式如php的"Y-m-d H:i:s"
-	fmt.Println(tt.Unix())
+	//fmt.Println(tt.Unix())
 
-	fmt.Println(nowTime)
+	//fmt.Println(nowTime)
 
 	if tt.Unix() < nowTime {
 		return errors.New("Expired.")
