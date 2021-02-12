@@ -11,14 +11,17 @@ import (
 
 func GetJson(ctx *gin.Context) {
 	jsonID := ctx.Param("id")
+	from := ctx.Query("from")
 	// 尝试从Redis中获取缓存数据
 	redisResult, err := dao.RedisGetData(jsonID)
 	if err == nil {
 		fmt.Printf("From Redis : %s\n", redisResult)
 		json, _ := logic.String2Json(redisResult)
 		ctx.JSON(http.StatusOK, json)
-		// 调用时增加次数
-		models.UpdateJsonCallCount(jsonID)
+		// 调用时增加次数（利用Gorm自动更新调用时间），从详情页访问时不计数
+		if from != "details" {
+			models.UpdateJsonCallCount(jsonID)
+		}
 		return
 	}
 
@@ -53,7 +56,9 @@ func GetJson(ctx *gin.Context) {
 	}
 
 	// 调用时增加次数
-	models.UpdateJsonCallCount(jsonID)
+	if from != "details" {
+		models.UpdateJsonCallCount(jsonID)
+	}
 	// 写入Redis缓存
 	dao.RedisSetData(mysqlResult.JsonId, mysqlResult.JsonBody)
 	// 设置Redis过期时间
