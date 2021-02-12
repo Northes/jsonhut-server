@@ -17,11 +17,11 @@ type PostReturnJson struct {
 
 type DetailsReturnData struct {
 	//JsonBody       map[string]interface{} `json:"json_body"`
-	Url            string `json:"url"`
-	Count          uint   `json:"count"`
-	ExpiresAt string `json:"expires_at"`
-	CreatedAt      string `json:"created_at"`
-	LastUsedAt      string `json:"last_used_at"`
+	Url        string `json:"url"`
+	Count      uint   `json:"count"`
+	CreatedAt  string `json:"created_at"`
+	LastUsedAt string `json:"last_used_at"`
+	ExpiresAt  string `json:"expires_at"`
 }
 
 type DetailsReturnJson struct {

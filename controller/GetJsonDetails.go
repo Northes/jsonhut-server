@@ -44,9 +44,9 @@ func GetJsonDetails(ctx *gin.Context) {
 			//JsonBody:       dat,
 			Url:        config.App.BaseUrl + "/bins/" + jsonID,
 			Count:      resultData.CallCount,
-			ExpiresAt:  eTime,
 			CreatedAt:  cTime,
 			LastUsedAt: uTime,
+			ExpiresAt:  eTime,
 		},
 	})
 }
