@@ -3,33 +3,46 @@ package logic
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
+	"github.com/bwmarrin/snowflake"
 	"time"
 )
 
 const (
-	BASE    = "E8S2DZX9WYLTN6BQF7CP5IK3MJUAR4HV"
-	DECIMAL = 32
-	PAD     = "G"
-	LEN     = 6
+	BASE    = "0TYysfrUHVjv7NlrlZjxbYwQ6N1KU2PAPGJrxjOLbXlpGX7FcSTPZ5cFLDvx9acW"
+	DECIMAL = 64
+	PAD     = "N"
+	LEN     = 8
 )
 
 // 计算Json唯一ID
 func Encode(uid uint64) string {
 	id := uid
-	mod := uint64(0)
-	res := ""
-	for id != 0 {
-		mod = id % DECIMAL
-		id = id / DECIMAL
-		res += string(BASE[mod])
+	//mod := uint64(0)
+	//res := ""
+	//for id != 0 {
+	//	mod = id % DECIMAL
+	//	id = id / DECIMAL
+	//	res += string(BASE[mod])
+	//}
+	//resLen := len(res)
+	//if resLen < LEN {
+	//	res += PAD
+	//	for i := 0; i < LEN-resLen-1; i++ {
+	//		res += string(BASE[(int(uid)+i)%DECIMAL])
+	//	}
+	//}
+	fmt.Println(id)
+	// 使用雪花算法生成jsonID
+	// Create a new Node with a Node number of 1
+	node, err := snowflake.NewNode(1)
+	if err != nil {
+		fmt.Println(err)
+		return ""
 	}
-	resLen := len(res)
-	if resLen < LEN {
-		res += PAD
-		for i := 0; i < LEN-resLen-1; i++ {
-			res += string(BASE[(int(uid)+i)%DECIMAL])
-		}
-	}
+
+	// Generate a snowflake ID.
+	res := node.Generate().Base58()
 	return res
 }
 
