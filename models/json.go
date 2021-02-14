@@ -10,7 +10,7 @@ import (
 
 type Json struct {
 	gorm.Model
-	JsonId         string    // JsonID
+	JsonId         string    `gorm:"type:varchar(255);uniqueIndex:idx_jsons_json_id"` // JsonID
 	JsonBody       string    // Json主体
 	ExpirationTime time.Time `gorm:"type:time"` // 过期时间
 	CallCount      uint      `gorm:"type:uint"` // 调用次数
