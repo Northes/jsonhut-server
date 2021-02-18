@@ -20,14 +20,14 @@ func SetupRouter() *gin.Engine {
 		engine.GET("/", func(context *gin.Context) {
 			baseurl := config.App.BaseUrl
 			context.JSON(http.StatusOK, gin.H{
-				"[GET] Request Json":      baseurl + "/bins/{id}",
+				"[GET] Request Json":       baseurl + "/bins/{id}",
 				"[POST] Create a new Json": baseurl + "/bins",
-				"[GET] Get Json details":  baseurl + "/details/{id}",
+				"[GET] Get Json details":   baseurl + "/details/{id}",
 			})
 		})
-		engine.GET("/bins/:id", controller.GetJson)
-		engine.POST("/bins", controller.PostJson)
-		engine.GET("/details/:id", controller.GetJsonDetails)
+		engine.GET("/bins/:id", middleware.IPCurrentLimiting("GET"), controller.GetJson)
+		engine.POST("/bins", middleware.IPCurrentLimiting("POST"), controller.PostJson)
+		engine.GET("/details/:id", middleware.IPCurrentLimiting("DETAILS"), controller.GetJsonDetails)
 		engine.NoRoute(func(context *gin.Context) {
 			context.JSON(http.StatusNotFound, models.ReturnJsonWithoutData{
 				Code: 404,
