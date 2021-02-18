@@ -1,10 +1,10 @@
 package routers
 
 import (
-	"jsonhutapi/config"
-	"jsonhutapi/controller"
-	"jsonhutapi/middleware"
-	"jsonhutapi/models"
+	"jsonhut-server/config"
+	"jsonhut-server/controller"
+	"jsonhut-server/middleware"
+	"jsonhut-server/models"
 	"net/http"
 
 	"github.com/gin-contrib/cors"

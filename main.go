@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"jsonhutapi/config"
-	"jsonhutapi/dao"
-	"jsonhutapi/models"
-	"jsonhutapi/routers"
+	"jsonhut-server/config"
+	"jsonhut-server/dao"
+	"jsonhut-server/models"
+	"jsonhut-server/routers"
 )
 
 func main() {

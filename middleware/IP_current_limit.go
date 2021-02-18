@@ -2,12 +2,13 @@ package middleware
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"jsonhutapi/config"
-	"jsonhutapi/dao"
-	"jsonhutapi/models"
+	"jsonhut-server/config"
+	"jsonhut-server/dao"
+	"jsonhut-server/models"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 func IPCurrentLimiting(mode string) gin.HandlerFunc {

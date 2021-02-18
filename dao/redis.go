@@ -2,8 +2,9 @@ package dao
 
 import (
 	"fmt"
+	"jsonhut-server/config"
+
 	"github.com/gomodule/redigo/redis"
-	"jsonhutapi/config"
 )
 
 var (

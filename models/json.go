@@ -2,10 +2,11 @@ package models
 
 import (
 	"fmt"
-	"gorm.io/gorm"
-	"jsonhutapi/dao"
-	"jsonhutapi/logic"
+	"jsonhut-server/dao"
+	"jsonhut-server/logic"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Json struct {

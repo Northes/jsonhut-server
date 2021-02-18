@@ -2,11 +2,12 @@ package controller
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"jsonhutapi/dao"
-	"jsonhutapi/logic"
-	"jsonhutapi/models"
+	"jsonhut-server/dao"
+	"jsonhut-server/logic"
+	"jsonhut-server/models"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetJson(ctx *gin.Context) {

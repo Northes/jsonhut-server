@@ -2,9 +2,10 @@ package dao
 
 import (
 	"fmt"
+	"jsonhut-server/config"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"jsonhutapi/config"
 )
 
 var (

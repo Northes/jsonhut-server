@@ -3,10 +3,11 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"jsonhutapi/config"
-	"jsonhutapi/models"
+	"jsonhut-server/config"
+	"jsonhut-server/models"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetJsonDetails(ctx *gin.Context) {

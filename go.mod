@@ -1,4 +1,4 @@
-module jsonhutapi
+module jsonhut-server
 
 go 1.15
 
