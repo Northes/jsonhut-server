@@ -21,7 +21,7 @@ func PostJson(ctx *gin.Context) {
 		return
 	}
 
-	intNum, _ := strconv.Atoi(json.Day)
+	intNum, _ := strconv.Atoi(json.DurationDays)
 	uid, err := models.CreateAJson(json.Json, intNum)
 	if err != nil {
 		fmt.Println(err.Error())
