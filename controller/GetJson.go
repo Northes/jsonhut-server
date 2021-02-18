@@ -38,8 +38,8 @@ func GetJson(ctx *gin.Context) {
 
 	// 判断是否过期或禁用
 	if err = logic.IsExpiredOrForbidden(mysqlResult.ExpirationTime, mysqlResult.Status); err != nil {
-		ctx.JSON(http.StatusNotFound, models.ReturnJsonWithoutData{
-			Code: 404,
+		ctx.JSON(http.StatusBadRequest, models.ReturnJsonWithoutData{
+			Code: 400,
 			Msg:  err.Error(),
 		})
 		return
