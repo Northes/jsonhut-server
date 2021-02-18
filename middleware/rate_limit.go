@@ -19,7 +19,7 @@ func RateLimitMiddleware(fillInterval time.Duration, cap int64) gin.HandlerFunc 
 			fmt.Println("rate limit...")
 			c.JSON(http.StatusServiceUnavailable, models.ReturnJsonWithoutData{
 				Code: 503,
-				Msg:  "rate limit...",
+				Msg:  "Rate limit.. | Please try again later",
 			})
 			c.Abort()
 			return
