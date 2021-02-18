@@ -39,7 +39,7 @@ func RedisGetData(name string) (string, error) {
 
 	r, err := redis.String(c.Do("GET", name))
 	if err != nil {
-		fmt.Println("get "+name+" faild :", err)
+		fmt.Println("Redis Get "+name+" faild :", err)
 		return "", err
 	}
 	return r, nil
