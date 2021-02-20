@@ -44,7 +44,12 @@ func IPCurrentLimiting(methodType string) gin.HandlerFunc {
 
 		// 增加对应ip的调用次数，过期时长1小时
 		usedRateLimit++
-		dao.RedisSetData(redisIPName, strconv.Itoa(usedRateLimit), 60*60)
+		if usedRateLimit == 1 {
+			// 首次计数
+			dao.RedisSetDataWithExpireTime(redisIPName, strconv.Itoa(usedRateLimit), 60*60)
+		} else {
+			dao.RedisSetDataWithExpireTime(redisIPName, strconv.Itoa(usedRateLimit), dao.RedisGetTTL(redisIPName))
+		}
 
 		// 设置头部信息
 		c.Header("X-Rate-Limit-Limit", strconv.Itoa(maxRateLimit))                   // 允许的最大调用次数
