@@ -23,7 +23,18 @@ func InitRedis() {
 	}
 }
 
-func RedisSetData(name string, data string, exTime int) {
+func RedisSetData(name string, data string) {
+	c := pool.Get() //从连接池，取一个链接
+	defer c.Close() //函数运行结束 ，把连接放回连接池
+
+	_, err := c.Do("Set", name, data)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+}
+
+func RedisSetDataWithExpireTime(name string, data string, exTime int) {
 	c := pool.Get() //从连接池，取一个链接
 	defer c.Close() //函数运行结束 ，把连接放回连接池
 

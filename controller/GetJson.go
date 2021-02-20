@@ -61,7 +61,7 @@ func GetJson(ctx *gin.Context) {
 		models.UpdateJsonCallCount(jsonID)
 	}
 	// 写入Redis缓存 并设置过期时间
-	dao.RedisSetData(mysqlResult.JsonId, mysqlResult.JsonBody, 5*60)
+	dao.RedisSetDataWithExpireTime(mysqlResult.JsonId, mysqlResult.JsonBody, 5*60)
 	// 设置Redis过期时间
 	//dao.RedisSetExpirationTime(mysqlResult.JsonId, -1)
 	ctx.JSON(http.StatusOK, dat)
